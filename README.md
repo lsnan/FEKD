@@ -10,7 +10,9 @@ Datasets and datasets are suggested to be downloaded from official pages.
 ## 📌 Environment Setup
 ```bash
 # Pytorch==2.5.1+CUDA12.4 (or 2.0.1+CUDA11.8)
-conda create -n lckd python=3.10 -y && conda activate lckd
+conda create -n lckd python=3.10 -y && conda activate fekd
 pip install -r requirements.txt
+```
 ## 📌 Quantitative Results
 <img width="774" height="499" alt="image" src="https://github.com/user-attachments/assets/d2e64b28-51f2-46ba-aae9-32b52b787ea4" />
+
