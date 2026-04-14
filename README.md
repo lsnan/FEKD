@@ -16,3 +16,10 @@ pip install -r requirements.txt
 ## 📌 Quantitative Results
 <img width="774" height="499" alt="image" src="https://github.com/user-attachments/assets/d2e64b28-51f2-46ba-aae9-32b52b787ea4" />
 
+## 📌 Training & Evaluation
+To train and evaluate the FEKD model, run:
+```bash
+**python -m distillation.distillation_new**
+python inference.py --ckpt /path/to/checkpoint 1 --pred_root ./e_preds
+```
+
