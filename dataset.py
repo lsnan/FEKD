@@ -41,7 +41,8 @@ class MyData(data.Dataset):
         self.load_all = config.load_all
         self.device = config.device
         if self.is_train and config.auxiliary_classification:
-            self.cls_name2id = {_name: _id for _id, _name in enumerate(class_labels_TR_sorted)}
+            # Optional classification branch (disabled in release)
+            self.cls_name2id = None
         self.transform_image = transforms.Compose([
             transforms.Resize(self.data_size),
             transforms.ToTensor(),
@@ -57,12 +58,11 @@ class MyData(data.Dataset):
         self.image_paths = []
         for dataset in datasets.split('+'):
             if self.is_train:
-                image_root = os.path.join(dataset_root, dataset, 'Train/Image')  # 这里拼接文件路径
+                image_root = os.path.join(dataset_root, dataset, 'Images')  # 这里拼接文件路径
             else:
                 image_root = os.path.join(dataset_root, dataset, 'Train/GT_Instance')  # 验证集路径
             print("数据集路径:", image_root)
             self.image_paths += [os.path.join(image_root, p) for p in os.listdir(image_root)]
-            print("image_paths:", self.image_paths)
         self.label_paths = []
         for p in self.image_paths:
             for ext in ['.png', '.jpg', '.PNG', '.JPG', '.JPEG']:
@@ -88,7 +88,7 @@ class MyData(data.Dataset):
                 self.images_loaded.append(_image)
                 self.labels_loaded.append(_label)
                 self.class_labels_loaded.append(
-                    self.cls_name2id[label_path.split('/')[-1].split('#')[3]] if self.is_train and config.auxiliary_classification else -1
+                    self.cls_name2id if self.is_train and config.auxiliary_classification else -1
                 )
 
     def __getitem__(self, index):
